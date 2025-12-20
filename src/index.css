@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  body {
+    @apply min-h-screen min-w-[320px] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-slate-100 antialiased m-0;
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+}
