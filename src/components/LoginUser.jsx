@@ -8,7 +8,6 @@ function LoginUser({ setLoginPage }) {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const apiUrl = import.meta.env.VITE_BASE_URL;
-  // console.log(apiUrl);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {

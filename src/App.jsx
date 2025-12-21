@@ -7,16 +7,15 @@ import UrlPage from './components/UrlPage';
 import HomePage from './components/HomePage';
 
 function App() {
-  const [isLoginPage, setIsLoginPage] = useState(true);
+  const token = localStorage.getItem('token');
   return (
-    // isLoginPage ? <LoginUser setLoginPage={setIsLoginPage} /> : <RegisterUser setLoginPage={setIsLoginPage} />
     <Routes>
-      <Route path='/' element={<HomePage />} />
+      <Route path='/' element={token ? < UrlPage /> : <HomePage />} />
       <Route path='/url-page' element={
         <ProtectedRoute>
           <UrlPage />
         </ProtectedRoute>
-      }/>
+      } />
       <Route path='/login-user' element={<LoginUser />} />
       <Route path='/register-user' element={<RegisterUser />} />
     </Routes>

@@ -14,33 +14,24 @@ function UrlPage() {
   const apiUrl = import.meta.env.VITE_BASE_URL
 
   // Fetch user's URLs - Add your backend API call here
-  useEffect(() => {
-    const fetchUserUrls = async () => {
-      setLoadingUrls(true)
-      try {
-        // TODO: Replace with your backend API endpoint
-        // const response = await axios.get(`${apiUrl}/api/user/urls`, {
-        //   withCredentials: true,
-        //   headers: {
-        //     'Authorization': `Bearer ${localStorage.getItem('token')}`
-        //   }
-        // })
-        // setUserUrls(response.data.urls || [])
-
-        // Placeholder - remove when backend is ready
-        const response = await axios.get(`${apiUrl}/api/urls`, { withCredentials: true });
-        const result = response.data;
-        console.log(result.urls);
-        setUserUrls(result.urls || [])
-      } catch (err) {
-        console.error('Error fetching URLs:', err)
-      } finally {
-        setLoadingUrls(false)
-      }
+  const fetchUserUrls = async () => {
+    setLoadingUrls(true)
+    try {
+      const response = await axios.get(`${apiUrl}/api/urls`, { withCredentials: true });
+      const result = response.data;
+      console.log(result.urls);
+      setUserUrls(result.urls || [])
+    } catch (err) {
+      console.error('Error fetching URLs:', err)
+    } finally {
+      setLoadingUrls(false)
     }
+  }
 
+
+  useEffect(() => {
     fetchUserUrls()
-  }, [apiUrl])
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -52,9 +43,7 @@ function UrlPage() {
       setError('Please enter a URL')
       return
     }
-
     setLoading(true)
-
     try {
       const response = await axios.post(`${apiUrl}/api/create`, { url: url.trim() }, { withCredentials: true }, {
         headers: {
@@ -92,20 +81,6 @@ function UrlPage() {
   const refreshUrls = async () => {
     setLoadingUrls(true)
     try {
-      // TODO: Replace with your backend API endpoint
-      // const response = await axios.get(`${apiUrl}/api/user/urls`, {
-      //   withCredentials: true,
-      //   headers: {
-      //     'Authorization': `Bearer ${localStorage.getItem('token')}`
-      //   }
-      // })
-      // setUserUrls(response.data.urls || [])
-
-      // Placeholder - remove when backend is ready
-      // For now, just refetch the URLs
-      const fetchUserUrls = async () => {
-        // Add your API call here
-      }
       await fetchUserUrls()
     } catch (err) {
       console.error('Error refreshing URLs:', err)
