@@ -52,7 +52,10 @@ function Navbar() {
     setUserName('')
     setShowDropdown(false)
     window.dispatchEvent(new Event('auth-change'))
-    navigate('/')
+
+    setTimeout(() => {
+      navigate('/', { replace: true });
+    }, 0);  //This is used when we logout, the url will route to the homepage.
   }
 
   const handleProfile = () => {
@@ -63,7 +66,7 @@ function Navbar() {
   }
 
   return (
-    <nav className="w-full border-b border-white/10 bg-white/5 backdrop-blur-xl">
+    <nav className="w-full border-b border-white/10 bg-white/5 backdrop-blur-xl z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <button
@@ -100,7 +103,8 @@ function Navbar() {
 
                 {/* Dropdown Menu */}
                 {showDropdown && (
-                  <div className="absolute right-0 mt-2 w-48 rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl shadow-black/40 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
+                  // <div className="absolute right-0 mt-2 w-48 rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl shadow-black/40 overflow-hidden animate-in fade-in slide-in-from-top-2 z-[999]">
+                  <div className="absolute right-0 mt-2 w-48 rounded-xl border border-white/10 bg-[#0F172A] backdrop-blur-xl shadow-2xl shadow-black/40 overflow-hidden z-[999]">
                     <div className="px-4 py-3 border-b border-white/10">
                       <p className="text-sm font-semibold text-white">{userName || 'User'}</p>
                       <p className="text-xs text-slate-400 mt-1">Signed in</p>
@@ -108,7 +112,8 @@ function Navbar() {
                     <div className="py-2">
                       <button
                         onClick={handleProfile}
-                        className="w-full px-4 py-2 text-left text-sm text-slate-200 hover:bg-white/10 transition flex items-center gap-3"
+                        // className="w-full px-4 py-2 text-left text-sm text-slate-200 hover:bg-white/10 transition flex items-center gap-3"
+                        className="w-full px-4 py-2 text-left text-sm text-slate-200 hover:bg-[#1E293B] transition flex items-center gap-3"
                       >
                         <svg
                           className="w-5 h-5 text-indigo-300"
@@ -127,7 +132,8 @@ function Navbar() {
                       </button>
                       <button
                         onClick={handleLogout}
-                        className="w-full px-4 py-2 text-left text-sm text-red-200 hover:bg-red-500/10 transition flex items-center gap-3"
+                        // className="w-full px-4 py-2 text-left text-sm text-red-200 hover:bg-red-500/10 transition flex items-center gap-3"
+                        className="w-full px-4 py-2 text-left text-sm text-red-200 hover:bg-[#1E293B] transition flex items-center gap-3"
                       >
                         <svg
                           className="w-5 h-5 text-red-300"

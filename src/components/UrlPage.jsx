@@ -11,7 +11,7 @@ function UrlPage() {
   const [userUrls, setUserUrls] = useState([])
   const [loadingUrls, setLoadingUrls] = useState(false)
   const [copiedUrlId, setCopiedUrlId] = useState(null)
-  const apiUrl = import.meta.env.VITE_BASE_URL
+  const apiUrl = import.meta.env.VITE_BASE_URL || "http://localhost:3000"
 
   // Fetch user's URLs - Add your backend API call here
   const fetchUserUrls = async () => {
@@ -19,7 +19,6 @@ function UrlPage() {
     try {
       const response = await axios.get(`${apiUrl}/api/urls`, { withCredentials: true });
       const result = response.data;
-      console.log(result.urls);
       setUserUrls(result.urls || [])
     } catch (err) {
       console.error('Error fetching URLs:', err)
@@ -27,12 +26,9 @@ function UrlPage() {
       setLoadingUrls(false)
     }
   }
-
-
   useEffect(() => {
     fetchUserUrls()
   }, [])
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
@@ -76,7 +72,6 @@ function UrlPage() {
       setError('Failed to copy to clipboard')
     }
   }
-
   // Refresh URLs list after creating a new short URL
   const refreshUrls = async () => {
     setLoadingUrls(true)
@@ -88,6 +83,15 @@ function UrlPage() {
       setLoadingUrls(false)
     }
   }
+  const handleUrlClick = (item) => {
+    setUserUrls(prevUrls => (
+      prevUrls.map(url =>
+        url._id === item._id ? { ...url, clicks: url.clicks + 1 } : url)
+    ))
+  }
+  // useEffect(() => {
+
+  // })
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -213,6 +217,7 @@ function UrlPage() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-lg font-semibold text-indigo-200 hover:text-indigo-100 break-all"
+                            onClick={() => handleUrlClick(urlItem)}
                           >
                             {apiUrl}/{urlItem.shortUrl}
                           </a>
