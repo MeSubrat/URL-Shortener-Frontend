@@ -17,6 +17,7 @@ function UrlPage() {
   const fetchUserUrls = async () => {
     setLoadingUrls(true)
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.get(`${apiUrl}/api/urls`, {
         withCredentials: true,
         headers: {
