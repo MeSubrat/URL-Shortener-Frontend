@@ -17,7 +17,12 @@ function UrlPage() {
   const fetchUserUrls = async () => {
     setLoadingUrls(true)
     try {
-      const response = await axios.get(`${apiUrl}/api/urls`, { withCredentials: true });
+      const response = await axios.get(`${apiUrl}/api/urls`, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       const result = response.data;
       setUserUrls(result.urls || [])
     } catch (err) {
